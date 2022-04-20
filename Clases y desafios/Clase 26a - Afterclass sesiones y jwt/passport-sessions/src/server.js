@@ -7,6 +7,9 @@ const User = require("./models/User.js");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const TwitterStrategy = require("passport-twitter").Strategy;
+const mongoStore = require("connect-mongo");
+const cookieParser = require("cookie-parser");
+
 
 const app = express();
 
@@ -31,11 +34,15 @@ mongoose.connect(URL, {
     console.log("db conectada")
 })
 
+app.use(cookieParser());
 //crear session
 app.use(session({
+    store:mongoStore.create({
+        mongoUrl:"mongodb+srv://fredy:coder18335@cluster18335.nk0og.mongodb.net/mySessions?retryWrites=true&w=majority",
+    }),
     secret:"clave",
-    resave: true,
-    saveUninitialized: true
+    resave: false,
+    saveUninitialized: false
 }))
 
 //configurar passport para autenticacion
@@ -109,20 +116,53 @@ passport.use('twitter', new TwitterStrategy({
   }
 ))
 
+//estrategia de login local
+passport.use('login', new LocalStrategy(
+    {
+        passReqToCallback: true
+    },
+    (req, username, password, done)=>{
+        User.findOne({username:username},(err,userFound)=>{
+            if(err) return done(err);
+            //validamos si el usuario no existe
+            if(!userFound) return done(null, false, {message:"user does not exists"})
+            //si encuentra el usuario, verificamos la contrasena
+            if(!bcrypt.compare(password, userFound.password)){
+                return done(null, false,{message:"invalid password"})
+            }
+            //abrir la sesion con el userFound
+            req.session.user = {username: userFound.username}
+            done(null, userFound);
+        })
+    }
+))
+
 //routes
 app.get('/',(req,res)=>{
     res.sendFile(publicPath+'/index.html')
 })
 
 app.get('/signup',(req,res)=>{
+    if(req.isAuthenticated()) return res.redirect("/perfil")
     res.sendFile(publicPath+'/signup.html')
 })
 
 app.get('/login',(req,res)=>{
+    if(req.isAuthenticated()) return res.redirect('/perfil')
     res.sendFile(publicPath+'/login.html')
 })
 
-app.get('/perfil',(req,res)=>{
+const isActiveSession = (req,res,next)=>{
+    if(req.session.user){
+        next();
+    } else{
+        res.send(
+            `<p>No autorizado</p></br><a href="/login">Iniciar sesion</a>`
+        )
+    }
+}
+
+app.get('/perfil',isActiveSession, (req,res)=>{
     res.sendFile(publicPath+'/perfil.html')
 })
 
@@ -140,3 +180,15 @@ app.get('/auth/twitter/callback', passport.authenticate('twitter', {
     successRedirect:'/perfil',
     failureRedirect: '/login'
 }))
+
+app.post("/loginForm", passport.authenticate('login',{
+    failureRedirect:'/login'
+}), (req,res)=>{
+    res.redirect('/perfil')
+})
+
+app.get('/logout',(req,res)=>{
+    req.logOut();
+    req.session.destroy();
+    res.redirect('/');
+})
