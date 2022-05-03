@@ -1,0 +1,14 @@
+2022/05/03 08:51:33 [error] 20392#26540: *1 CreateFile() "C:\Users\fredd\Downloads\preDoc\nginx-1.21.6\nginx-1.21.6/html/favicon.ico" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost:81", referrer: "http://localhost:81/"
+2022/05/03 08:54:10 [notice] 16696#27880: signal process started
+2022/05/03 09:32:42 [emerg] 23152#33380: unexpected "}" in E:\Coderhouse\Coderhouse-Back-18335\Clases y desafios\Clase 30 - Proxy nginx\Proxy-aplicacion/conf/nginx.conf:38
+2022/05/03 09:33:02 [emerg] 32840#33636: unexpected "}" in E:\Coderhouse\Coderhouse-Back-18335\Clases y desafios\Clase 30 - Proxy nginx\Proxy-aplicacion/conf/nginx.conf:38
+2022/05/03 09:33:30 [emerg] 33232#25092: unexpected "}" in E:\Coderhouse\Coderhouse-Back-18335\Clases y desafios\Clase 30 - Proxy nginx\Proxy-aplicacion/conf/nginx.conf:38
+2022/05/03 09:34:25 [emerg] 9656#24824: unexpected "}" in E:\Coderhouse\Coderhouse-Back-18335\Clases y desafios\Clase 30 - Proxy nginx\Proxy-aplicacion/conf/nginx.conf:38
+2022/05/03 09:34:56 [emerg] 19592#14000: unexpected "}" in E:\Coderhouse\Coderhouse-Back-18335\Clases y desafios\Clase 30 - Proxy nginx\Proxy-aplicacion/conf/nginx.conf:38
+2022/05/03 09:35:37 [emerg] 1140#19888: unexpected "}" in E:\Coderhouse\Coderhouse-Back-18335\Clases y desafios\Clase 30 - Proxy nginx\Proxy-aplicacion/conf/nginx.conf:38
+2022/05/03 09:35:43 [emerg] 33520#33440: unexpected "}" in E:\Coderhouse\Coderhouse-Back-18335\Clases y desafios\Clase 30 - Proxy nginx\Proxy-aplicacion/conf/nginx.conf:38
+2022/05/03 09:37:17 [error] 18020#1936: *1 CreateFile() "E:\Coderhouse\Coderhouse-Back-18335\Clases y desafios\Clase 30 - Proxy nginx\Proxy-aplicacion/html/favicon.ico" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost:82", referrer: "http://localhost:82/datos/"
+2022/05/03 09:38:15 [notice] 16972#25512: signal process started
+2022/05/03 09:39:16 [notice] 25068#7768: signal process started
+2022/05/03 09:41:05 [notice] 23452#25108: signal process started
+2022/05/03 09:48:39 [notice] 5208#14488: signal process started
